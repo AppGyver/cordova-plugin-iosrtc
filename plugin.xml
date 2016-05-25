@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 		id="cordova-plugin-iosrtc"
-		version="3.0.1-pre">
+		version="3.0.1-appgyver">
 
 	<name>iosrtc</name>
-	<description>Cordova iOS plugin exposing the full WebRTC W3C JavaScript APIs</description>
+	<description>
+		AppGyver iOS plugin (based on the cordova version) exposing the full WebRTC W3C JavaScript APIs
+	</description>
 	<author>Iñaki Baz Castillo at eFace2Face, inc.</author>
 	<license>MIT</license>
-	<keywords>webrtc, ios</keywords>
+	<keywords>webrtc, ios, appgyver</keywords>
 
 	<info>
 		cordova-plugin-iosrtc enables use of the JavaScript WebRTC APIs (as defined by the W3C) in iOS devices.
@@ -15,7 +17,7 @@
 	</info>
 
 	<engines>
-		<engine name="cordova-ios" version=">=3.8.0" />
+		<engine name="cordova-ios" version=">=3.5.0" />
 	</engines>
 
 	<platform name="ios">
