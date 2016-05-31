@@ -25,7 +25,7 @@ class PluginRTCPeerConnection : NSObject, RTCPeerConnectionDelegate, RTCSessionD
 		eventListenerForAddStream: (pluginMediaStream: PluginMediaStream) -> Void,
 		eventListenerForRemoveStream: (id: String) -> Void
 	) {
-		NSLog("PluginRTCPeerConnection#init()")
+		print("PluginRTCPeerConnection#init() -> pcConfig: \(pcConfig?.description  )")
 
 		self.rtcPeerConnectionFactory = rtcPeerConnectionFactory
 		self.pluginRTCPeerConnectionConfig = PluginRTCPeerConnectionConfig(pcConfig: pcConfig)
@@ -82,8 +82,12 @@ class PluginRTCPeerConnection : NSObject, RTCPeerConnectionDelegate, RTCSessionD
 			errback(error: error)
 		}
 
+        let constraints = pluginRTCPeerConnectionConstraints.getConstraints()
+        
+        print("constraints: \(constraints)")
+        
 		self.rtcPeerConnection.createOfferWithDelegate(self,
-			constraints: pluginRTCPeerConnectionConstraints.getConstraints())
+			constraints:constraints )
 	}
 
 
@@ -201,7 +205,7 @@ class PluginRTCPeerConnection : NSObject, RTCPeerConnectionDelegate, RTCSessionD
 	func addIceCandidate(
 		candidate: NSDictionary,
 		callback: (data: NSDictionary) -> Void,
-		errback: () -> Void
+		errback: (error: NSError) -> Void
 	) {
 		NSLog("PluginRTCPeerConnection#addIceCandidate()")
 
@@ -237,7 +241,9 @@ class PluginRTCPeerConnection : NSObject, RTCPeerConnectionDelegate, RTCSessionD
 
 			callback(data: data)
 		} else {
-			errback()
+            let errorDescription =  "Could not add ICE Candidate :(";
+            
+            errback(error: NSError(domain: "iosrtc plugin", code: 10010, userInfo: [NSLocalizedDescriptionKey:errorDescription, NSLocalizedFailureReasonErrorKey:errorDescription]))
 		}
 	}
 
